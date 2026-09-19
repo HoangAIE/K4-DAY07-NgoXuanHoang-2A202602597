@@ -1,0 +1,16 @@
+# Customer Support Playbook
+
+## 1. Overview
+This playbook provides standard operating procedures for customer service representatives.
+Our goal is to resolve customer inquiries quickly, politely, and accurately.
+
+## 2. Response SLA
+- High Priority (System Outage, Billing Issue): First response within 15 minutes.
+- Medium Priority (Account Settings, General Inquiry): First response within 2 hours.
+- Low Priority (Feature Requests, Feedback): First response within 24 hours.
+
+## 3. Communication Standards
+- Always greet the customer by name.
+- Empathize with customer issues before proposing solutions.
+- Confirm resolution before closing tickets.
+- Document recurring problems in the knowledge base.

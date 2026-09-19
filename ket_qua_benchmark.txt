@@ -1,0 +1,142 @@
+================================================================================
+           BENCHMARK RETRIEVAL QUALITY — LAB 7: EMBEDDING & VECTOR STORE
+================================================================================
+
+[1] CHIẾN LƯỢC CHUNKING ĐANG DÙNG: RecursiveChunker
+[2] THƯ MỤC DỮ LIỆU: D:\K4-DAY07-NgoXuanHoang-2A202602597\data\kytucxa
+[3] KẾT QUẢ CHUNKING TỪNG FILE:
+    - fpt-huong-dan-nhan-phong.md    ->   7 chunks
+    - fpt-kinh-nghiem-ktx.md         ->   9 chunks
+    - fpt-noi-quy-ktx-hl.md          ->  79 chunks
+    - fpt-ocd-portal.md              ->  10 chunks
+    - fpt-quy-dinh-bql.md            ->   4 chunks
+    - fpt-tien-ich-ktx.md            ->   4 chunks
+    ==> Tổng số chunk đã nạp: 113
+[4] Đã nạp thành công 113 chunks vào EmbeddingStore.
+
+================================================================================
+     ĐÁNH GIÁ 5 BENCHMARK QUERIES — CHẤM 2 MỨC (DOC-LEVEL VS CONTENT-LEVEL)
+================================================================================
+
+--------------------------------------------------------------------------------
+CÂU HỎI #1 [Tra số liệu (Numeric lookup)]
+Query: "Định mức điện nước miễn phí cho mỗi phòng KTX trong một kỳ là bao nhiêu và mức phí phụ trội khi dùng vượt?"
+Tài liệu chuẩn (Gold doc_id): fpt-ocd-portal
+Chuỗi đặc trưng bắt buộc (Key Phrases): ['200 số Điện', '12 số Nước', '2,500']
+Câu trả lời chuẩn (Gold Answer):
+  Định mức miễn phí: 200 số Điện & 12 số Nước mỗi phòng/kỳ. Dùng vượt định mức phải nộp phí phụ trội: 2,500đ/số điện, 10,000đ/số nước.
+
+Top-3 chunks được truy xuất:
+  [1] Score: +0.2316 | doc_id: fpt-noi-quy-ktx-hl   | Chunk: fpt-noi-quy-ktx-hl#32
+      Preview: "Không chen lấn xô đẩy và tuân thủ sự điều động của bộ phận quản lý KTX, đội PCCC cơ sở để tuần tự theo lối thoát hiểm ra khỏi nơi ..."
+  [2] Score: +0.2188 | doc_id: fpt-noi-quy-ktx-hl   | Chunk: fpt-noi-quy-ktx-hl#72
+      Preview: "|29.|Tàng trữ vũ khí, chất nổ, chất<br>cháy, hóa chất độc hại, hàng<br>quốc cấm; Đốt pháo trong khu<br>vực KTX||||Lần 1|Trình báo ..."
+  [3] Score: +0.2159 | doc_id: fpt-noi-quy-ktx-hl   | Chunk: fpt-noi-quy-ktx-hl#36
+      Preview: "6. Sinh viên hạn chế đưa các vật dụng, tài sản cồng kềnh vào phòng ở; không giữ quá   nhiều đồ cá nhân trong phòng ảnh hưởng không..."
+
+==> Điểm Doc-Level (ngây thơ)   : 0/2 điểm (Doc Hit Rank: None)
+==> Điểm Content-Level (thực chất): 0/2 điểm [Top-3 KHÔNG chứa chunk có thông tin đáp án (+0đ)]
+
+--------------------------------------------------------------------------------
+CÂU HỎI #2 [Hỏi điều kiện (Condition requirements)]
+Query: "Tủ lạnh sinh viên được phép mang vào KTX cần đáp ứng những điều kiện và tiêu chuẩn gì?"
+Tài liệu chuẩn (Gold doc_id): fpt-noi-quy-ktx-hl
+Chuỗi đặc trưng bắt buộc (Key Phrases): ['110L', 'kiểu G', '3 năm', 'bảo trì']
+Câu trả lời chuẩn (Gold Answer):
+  Mỗi phòng/block được 01 tủ lạnh dung tích dưới 110L; sử dụng nguồn điện đúng ổ cắm tiêu chuẩn (kiểu G); yêu cầu thời gian sử dụng ≤ 3 năm tính từ ngày sản xuất; thời hạn sử dụng tại KTX không quá 10 năm; phải lưu phiếu bảo trì để phục vụ kiểm tra định kỳ.
+
+Top-3 chunks được truy xuất:
+  [1] Score: +0.2854 | doc_id: fpt-noi-quy-ktx-hl   | Chunk: fpt-noi-quy-ktx-hl#21 [MATCH_DOC]
+      Preview: "12. Nghiêm cấm việc trao đổi mua bán hàng hóa qua hàng rào. Giao - nhận hàng hóa   phải tuân thủ đúng nơi quy định của nhà trường...."
+  [2] Score: +0.2779 | doc_id: fpt-noi-quy-ktx-hl   | Chunk: fpt-noi-quy-ktx-hl#40 [MATCH_DOC]
+      Preview: "5. Không để rác gây mùi trong phòng hay hành lang, làm tắc nghẽn bồn cầu, chậu rửa mặt, thoát sàn.   6. Sinh viên nội trú nghỉ ngắ..."
+  [3] Score: +0.2496 | doc_id: fpt-kinh-nghiem-ktx  | Chunk: fpt-kinh-nghiem-ktx#7
+      Preview: "## 4. Năng nổ trong các hoạt động và CLB *(Theo chia sẻ của Lê Thị Kim Chi – K16 – Truyền thông đa phương tiện)* - Khuôn viên trườ..."
+
+==> Điểm Doc-Level (ngây thơ)   : 2/2 điểm (Doc Hit Rank: 1)
+==> Điểm Content-Level (thực chất): 0/2 điểm [Top-3 KHÔNG chứa chunk có thông tin đáp án (+0đ)]
+
+--------------------------------------------------------------------------------
+CÂU HỎI #3 [Hỏi quy trình (Step-by-step procedure)]
+Query: "Quy trình gửi yêu cầu báo cáo sửa chữa đồ dùng kỹ thuật trong phòng KTX gồm những bước nào?"
+Tài liệu chuẩn (Gold doc_id): fpt-ocd-portal
+Chuỗi đặc trưng bắt buộc (Key Phrases): ['My request', 'cim.fpt.edu.vn', 'Báo cáo vấn đề kỹ thuật']
+Câu trả lời chuẩn (Gold Answer):
+  Bước 1: Vào chức năng My request -> Chọn Create new request -> Chọn 'Báo cáo vấn đề kỹ thuật'. Bước 2: Hệ thống dẫn tới trang https://cim.fpt.edu.vn/. Bước 3: Điền thông tin và gửi ảnh tình trạng thiết bị lên CIM, sau đó bấm Create.
+
+Top-3 chunks được truy xuất:
+  [1] Score: +0.3117 | doc_id: fpt-huong-dan-nhan-phong | Chunk: fpt-huong-dan-nhan-phong#4
+      Preview: "- Tân sinh viên đến trường thực hiện theo hướng dẫn của các cán bộ phụ trách và tình nguyện viên hỗ trợ.  - Tân sinh viên mang thê..."
+  [2] Score: +0.3105 | doc_id: fpt-noi-quy-ktx-hl   | Chunk: fpt-noi-quy-ktx-hl#22
+      Preview: "phe phái gây rối mất trật tự an ninh, gây ồn ào ảnh hưởng tới người khác.   2. Không chế tạo, tàng trữ và sử dụng các loại hung kh..."
+  [3] Score: +0.2092 | doc_id: fpt-tien-ich-ktx     | Chunk: fpt-tien-ich-ktx#2
+      Preview: "## 2. Dịch vụ ăn uống và tiện ích mua sắm - **Căn tin:** Rộng rãi, sạch sẽ với không gian sinh động nhiều màu sắc. Phục vụ đa dạng..."
+
+==> Điểm Doc-Level (ngây thơ)   : 0/2 điểm (Doc Hit Rank: None)
+==> Điểm Content-Level (thực chất): 0/2 điểm [Top-3 KHÔNG chứa chunk có thông tin đáp án (+0đ)]
+
+--------------------------------------------------------------------------------
+CÂU HỎI #4 [Liệt kê (Enumeration / List)]
+Query: "Danh mục các thiết bị điện sinh viên được phép mang vào sử dụng tại KTX bao gồm những thiết bị nào?"
+Tài liệu chuẩn (Gold doc_id): fpt-noi-quy-ktx-hl
+Chuỗi đặc trưng bắt buộc (Key Phrases): ['ấm điện', 'bàn là', 'quạt điện', 'máy sấy tóc']
+Câu trả lời chuẩn (Gold Answer):
+  Máy tính (để bàn, laptop), tủ lạnh (dưới 110L/phòng), quạt điện, bàn là, máy sấy tóc, ấm điện (mỗi phòng 1-2 ấm đun có rơle tự ngắt), đèn học. Thiết bị khác phải được BQL KTX đồng ý.
+
+Top-3 chunks được truy xuất:
+  [1] Score: +0.2854 | doc_id: fpt-kinh-nghiem-ktx  | Chunk: fpt-kinh-nghiem-ktx#3
+      Preview: "## 2. Tự tin, hòa đồng và tham gia box-chat chuyên ngành *(Theo chia sẻ của Đỗ Hữu Đại – K15 – Trí tuệ Nhân tạo)* - **Bí quyết:** ..."
+  [2] Score: +0.2850 | doc_id: fpt-noi-quy-ktx-hl   | Chunk: fpt-noi-quy-ktx-hl#76 [MATCH_DOC]
+      Preview: "|32.|Truyền đạo hoặc mê tín dị đoan<br>trong KTX|||Lần 1|Lần 2|Tùy theo mức độ lập<br>biên bản và đề nghị<br>xử lý theo pháp luật|..."
+  [3] Score: +0.2801 | doc_id: fpt-noi-quy-ktx-hl   | Chunk: fpt-noi-quy-ktx-hl#53 [MATCH_DOC]
+      Preview: "2"
+
+==> Điểm Doc-Level (ngây thơ)   : 1/2 điểm (Doc Hit Rank: 2)
+==> Điểm Content-Level (thực chất): 0/2 điểm [Top-3 KHÔNG chứa chunk có thông tin đáp án (+0đ)]
+
+--------------------------------------------------------------------------------
+CÂU HỎI #5 [Lọc đối tượng (Audience Filter — Tránh nhầm tài liệu BQL vs Sinh viên)]
+Query: "Quy trình kiểm tra phòng"
+Filter áp dụng: {'audience': 'student'}
+Tài liệu chuẩn (Gold doc_id): fpt-noi-quy-ktx-hl
+Chuỗi đặc trưng bắt buộc (Key Phrases): ['kiểm tra', 'phối hợp mở cửa', 'lập biên bản']
+Câu trả lời chuẩn (Gold Answer):
+  Theo quy định dành cho sinh viên (fpt-noi-quy-ktx-hl Điều 9): Việc kiểm tra được thực hiện theo nguyên tắc thông báo và yêu cầu sinh viên phối hợp mở cửa; trường hợp khẩn cấp hoặc không chấp hành, cán bộ được phép mở cửa vào và lập biên bản.
+
+Top-3 chunks được truy xuất:
+  [1] Score: +0.2835 | doc_id: fpt-noi-quy-ktx-hl   | Chunk: fpt-noi-quy-ktx-hl#40 [MATCH_DOC]
+      Preview: "5. Không để rác gây mùi trong phòng hay hành lang, làm tắc nghẽn bồn cầu, chậu rửa mặt, thoát sàn.   6. Sinh viên nội trú nghỉ ngắ..."
+  [2] Score: +0.2663 | doc_id: fpt-noi-quy-ktx-hl   | Chunk: fpt-noi-quy-ktx-hl#56 [MATCH_DOC]
+      Preview: "|9.|Vào muộn sau giờ quy định<br>không có lý do chính đáng.|Lần 1|Lần 2|Lần 3|Lần 4|| |10.|Tổ chức hoặc tham gia các hoạt<br>động ..."
+  [3] Score: +0.2492 | doc_id: fpt-kinh-nghiem-ktx  | Chunk: fpt-kinh-nghiem-ktx#1
+      Preview: "## 1. Xác định rõ quy tắc chung với bạn cùng phòng *(Theo chia sẻ của Nguyễn Cẩm Tú – K15 – Quản trị khách sạn)* - Môi trường KTX ..."
+
+==> Điểm Doc-Level (ngây thơ)   : 2/2 điểm (Doc Hit Rank: 1)
+==> Điểm Content-Level (thực chất): 0/2 điểm [Top-3 KHÔNG chứa chunk có thông tin đáp án (+0đ)]
+
+  ==========================================================================
+  [THỬ NGHIỆM ĐỐI CHỨNG A/B CÂU 5: CÓ FILTER VS KHÔNG FILTER]
+  ==========================================================================
+  --> KẾT QUẢ KHÔNG FILTER (filter=None):
+      [1] doc_id: fpt-quy-dinh-bql     (audience: staff  ) | Score: +0.3069 | "Để đảm bảo an toàn, an ninh và vệ sinh tại KTX, cán bộ và nhân viên BQL cần tuân thủ quy t..."
+      [2] doc_id: fpt-noi-quy-ktx-hl   (audience: student) | Score: +0.2835 | "5. Không để rác gây mùi trong phòng hay hành lang, làm tắc nghẽn bồn cầu, chậu rửa mặt, th..."
+      [3] doc_id: fpt-noi-quy-ktx-hl   (audience: student) | Score: +0.2663 | "|9.|Vào muộn sau giờ quy định<br>không có lý do chính đáng.|Lần 1|Lần 2|Lần 3|Lần 4|| |10...."
+
+  --> KẾT QUẢ CÓ FILTER (metadata_filter={'audience': 'student'}):
+      [1] doc_id: fpt-noi-quy-ktx-hl   (audience: student) | Score: +0.2835 | "5. Không để rác gây mùi trong phòng hay hành lang, làm tắc nghẽn bồn cầu, chậu rửa mặt, th..."
+      [2] doc_id: fpt-noi-quy-ktx-hl   (audience: student) | Score: +0.2663 | "|9.|Vào muộn sau giờ quy định<br>không có lý do chính đáng.|Lần 1|Lần 2|Lần 3|Lần 4|| |10...."
+      [3] doc_id: fpt-kinh-nghiem-ktx  (audience: student) | Score: +0.2492 | "## 1. Xác định rõ quy tắc chung với bạn cùng phòng *(Theo chia sẻ của Nguyễn Cẩm Tú – K15 ..."
+
+  ==> KẾT LUẬN A/B:
+      Nếu KHÔNG lọc audience: student, Top-1 trả về quy trình dành cho Ban Quản Lý (fpt-quy-dinh-bql - staff) yêu cầu BQL kiểm tra thứ 5 hàng tuần 14h-16h, gõ cửa 3 lần, lập biên bản tịch thu nộp kho DOM và báo cáo OCD.
+      => Lọc metadata giúp loại bỏ 100% tài liệu SOP Ban Quản Lý (staff),
+         đảm bảo sinh viên chỉ nhận được quy chế kiểm tra phòng áp dụng cho sinh viên!
+
+================================================================================
+                           TỔNG KẾT SO SÁNH HAI MỨC CHẤM
+================================================================================
+Chiến lược chunking: RecursiveChunker
+- Tổng điểm Doc-Level (Ngây thơ)    :  5 / 10 Điểm
+- Tổng điểm Content-Level (Thực chất):  0 / 10 Điểm
+- Chênh lệch do 'trúng file nhưng trượt chunk đáp án': -5 Điểm
+================================================================================

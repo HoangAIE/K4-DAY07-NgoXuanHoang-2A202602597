@@ -1,0 +1,6 @@
+url,doc_id,title,audience,department,category,language,document_version,license_or_permission
+https://ocd.fpt.edu.vn/,fpt-ocd-portal,Cổng thông tin nội bộ FPT OCD,all,dom-management,portal,vi,not-stated,public-source
+https://daihoc.fpt.edu.vn/huong-dan-k19-nhan-phong,fpt-huong-dan-nhan-phong,Hướng dẫn K19 nhận phòng KTX,student,student-affairs,guide,vi,K19,public-source
+https://daihoc.fpt.edu.vn/tien-ich-ktx,fpt-tien-ich-ktx,Tiện ích KTX FPT Hà Nội,student,dom-management,info,vi,not-stated,public-source
+https://daihoc.fpt.edu.vn/kinh-nghiem-ktx,fpt-kinh-nghiem-ktx,Bí quyết làm quen KTX,student,student-affairs,tips,vi,not-stated,public-source
+internal://fpt-quy-dinh-bql,fpt-quy-dinh-bql,Quy định kiểm tra phòng dành cho BQL DOM,staff,dom-management,SOP,vi,2026,internal
